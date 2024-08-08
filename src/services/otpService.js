@@ -5,6 +5,8 @@ const { Op } = require('sequelize');
 const generateOTP = () => crypto.randomBytes(3).toString('hex');
 
 const saveOTP = async (user_id) => {
+  await OTP.destroy({ where: { user_id } });
+
   const otp = generateOTP();
 //   console.log(otp)
   const expires_at = new Date(Date.now() + 15 * 60 * 1000);
